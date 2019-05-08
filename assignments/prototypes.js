@@ -24,7 +24,7 @@ function GameObject(mattersNot) {
 };
 
 GameObject.prototype.destroy = function() {
-  return `${this.name} was removed from the game.`
+  return `${this.name} was removed from the game.`;
 };
 
 /*
@@ -145,6 +145,7 @@ Humanoid.prototype.greet = function() {
   function Villain(badGuy) {
 Humanoid.call(this, badGuy);
 this.team = `EVIIIIL`;
+this.victory = `The world is overtaken by darkness.`;
 }
 
   Villain.prototype = Object.create(Humanoid.prototype);
@@ -152,7 +153,7 @@ this.team = `EVIIIIL`;
     if (person.healthPoints > 0) {
       return person.healthPoints -= 2;
     } else {
-      return person.destroy();
+      return `${person.destroy()} ${this.victory}`;
     };
   };
 
@@ -172,19 +173,19 @@ this.team = `EVIIIIL`;
     language: `all of them`,
   });
 
-  console.log(sauron);
 
   function Hero(goodGuy) {
     Humanoid.call(this, goodGuy);
     this.team = `Avengers`;
+    this.victory = `The world is saved!`;
       }
 
       Hero.prototype = Object.create(Humanoid.prototype);
   Hero.prototype.punch = function(person) {
     if (person.healthPoints > 0) {
-      return person.healthPoints -= 2;
+      return person.healthPoints -= 10;
     } else {
-      return person.destroy();
+      return `${person.destroy()} ${this.victory}` ;
     };
   }
       const ironMan = new Hero({
@@ -203,27 +204,19 @@ this.team = `EVIIIIL`;
         language: `English`,
       });
 
-      console.log(ironMan);
 
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(ironMan.punch(sauron));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
-      console.log(sauron.punch(ironMan));
+      let fightNow = function(fighter1, fighter2) {
+        do{
+          console.log(`Sauron takes a hit to the eye, his health is now ${fighter1.punch(fighter2)}`);
+          console.log(`Iron Man gets punched in the Ego! his health is now ${fighter2.punch(fighter1)}`);
+        }while((fighter1.healthPoints > 0 && fighter2.healthPoints >0))
+  
+        if (fighter2.healthPoints > fighter1.healthPoints) {
+          return console.log(`${fighter2.destroy()}, ${fighter1.victory}`);
+        } else {
+          return console.log(`${fighter1.destroy()}, ${fighter2.victory}`);
+        };
+      };
+  
+      fightNow(sauron, ironMan);
+      
