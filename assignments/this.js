@@ -9,6 +9,8 @@
 * write out a code example of each explanation above
 */
 
+
+/*
 // Principle 1
 const windowView = function() {
     console.log(`this is the window view`);
@@ -48,3 +50,4 @@ robin.voicemail();
 const doug = new PersonalVoiceMail(`Doug`);
 doug.voicemail();
 doug.voicemail.apply(robin);
+*/

@@ -10,11 +10,22 @@
   
 /*
   === GameObject ===
+  
   * createdAt
   * name
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
+
+function GameObject(mattersNot) {
+  this.createdAt = mattersNot.createdAt;
+  this.name = mattersNot.name;
+  this.dimensions = mattersNot.dimensions;
+};
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`
+};
 
 /*
   === CharacterStats ===
@@ -22,6 +33,15 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(statLine) {
+  GameObject.call(this, statLine);
+  this.healthPoints = statLine.healthPoints;
+};
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage!`
+};
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -32,7 +52,20 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+function Humanoid(yourPerson) {
+  CharacterStats.call(this, yourPerson);
+  this.team = yourPerson.team;
+  this.weapons = yourPerson.weapons;
+  this.language = yourPerson.language;
+};
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`
+};
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -108,3 +141,89 @@
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Villain(badGuy) {
+Humanoid.call(this, badGuy);
+this.team = `EVIIIIL`;
+}
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+  Villain.prototype.punch = function(person) {
+    if (person.healthPoints > 0) {
+      return person.healthPoints -= 2;
+    } else {
+      return person.destroy();
+    };
+  };
+
+  const sauron = new Villain({
+    createdAt : new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 10,
+    },
+    healthPoints: 100,
+    name: `Sauron`,
+    weapons: [
+      `Eye`,
+      `The Ring`,
+    ],
+    language: `all of them`,
+  });
+
+  console.log(sauron);
+
+  function Hero(goodGuy) {
+    Humanoid.call(this, goodGuy);
+    this.team = `Avengers`;
+      }
+
+      Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.punch = function(person) {
+    if (person.healthPoints > 0) {
+      return person.healthPoints -= 2;
+    } else {
+      return person.destroy();
+    };
+  }
+      const ironMan = new Hero({
+        createdAt : new Date(),
+        dimensions: {
+          length: 1,
+          width: 1,
+          height: 2,
+        },
+        healthPoints: 40,
+        name: `Iron Man`,
+        weapons: [
+          `Lasers`,
+          `bombs`,
+        ],
+        language: `English`,
+      });
+
+      console.log(ironMan);
+
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(ironMan.punch(sauron));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
+      console.log(sauron.punch(ironMan));
